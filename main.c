@@ -3,7 +3,7 @@
 
 int main()
 {
-    int a=8;
+    int a=89;
 
     int k=6;
     if(k<9)
