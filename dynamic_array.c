@@ -1,70 +1,140 @@
-// https://www.geeksforgeeks.org/pointer-array-array-pointer/
+// https://www.geeksforgeeks.org/dynamic-array-in-c/
 
-// C Program to illustrate the 2D array
-#include <stdio.h>
 
-void one_d_array() {
+
+// C program to create dynamic array using malloc() function 
   
- int arr[5] = {1, 2, 3, 4, 5};
-
-    // Create a pointer to integer
-    int *p1;
-
-    // Pointer to an array of 5 integers
-    int(*p2)[5];
-
-    // Points to 0th element of the arr
-    p1 = arr;
-
-    // Points to the whole array arr
-    p2 = &arr;
+#include <stdio.h> 
+#include <stdlib.h>
+ 
+void malloc_example() {
   
-      printf("p1 = %p\n", p1);
-      printf("*p2 = %p\n\n", *p2);
+    // address of the block created hold by this pointer 
+    int* ptr; 
+    int size; 
   
-      // incrementing both pointers
-    p1++;
-    p2++;
-    printf("p1 = %p\n", p1);
-    printf("*p2 = %p", p2);
+    // Size of the array 
+    printf("Enter size of elements:"); 
+    scanf("%d", &size); 
+  
+    //  Memory allocates dynamically using malloc() 
+    ptr = (int*)malloc(size * sizeof(int)); 
+  
+    // Checking for memory allocation 
+    if (ptr == NULL) { 
+        printf("Memory not allocated.\n"); 
+    } 
+    else { 
+  
+        // Memory allocated 
+        printf("Memory successfully allocated using "
+               "malloc.\n"); 
+  
+        // Get the elements of the array 
+        for (int j = 0; j < size; ++j) { 
+            ptr[j] = j + 1; 
+        } 
+  
+        // Print the elements of the array 
+        printf("The elements of the array are: "); 
+        for (int k = 0; k < size; ++k) { 
+            printf("%d, ", ptr[k]); 
+        } 
+    } 
 
 }
 
-void two_d_array(){
-    int arr[2][3] = {{1, 2, 3},
-                    {4, 5, 6}};
+void calloc_example(){
+    // address of the block created hold by this pointer 
+    int* ptr; 
+    int size; 
   
-      // pointer to above array
-    int (*ptr)[2][3] = &arr;
-
-      // Traversing the arry using ptr
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 3; j++) {
-                printf("%d ", (*ptr)[i][j]);
-        }
-        printf("\n");
-    }
+    // Size of the array 
+    printf("Enter size of elements:"); 
+    scanf("%d", &size); 
+  
+    //  Memory allocates dynamically using calloc() 
+    ptr = (int*)calloc(size, sizeof(int)); 
+  
+    // Checking for memory allocation 
+    if (ptr == NULL) { 
+        printf("Memory not allocated.\n"); 
+    } 
+    else { 
+  
+        // Memory allocated 
+        printf("Memory successfully allocated using "
+               "malloc.\n"); 
+  
+        // Get the elements of the array 
+        for (int j = 0; j < size; ++j) { 
+            ptr[j] = j + 1; 
+        } 
+  
+        // Print the elements of the array 
+        printf("The elements of the array are: "); 
+        for (int k = 0; k < size; ++k) { 
+            printf("%d, ", ptr[k]); 
+        } 
+    } 
 
 }
 
-int three_d_array() {
+void resize_dynamic_array_using_realloc() {
   
-    int arr[2][3][2] = {{{1, 2}, {3, 4}, {5, 6}},
-                       {{7, 8}, {9, 10}, {11, 12}}};
-
-    // Pointer to the 3D array
-    int (*ptr)[2][3][2] = &arr;
-
-    // Traversing the 3D array using the pointer
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 2; k++) {
-                printf("%d ", (*ptr)[i][j][k]);
-            }
-            printf("\n");
-        }
-        printf("\n");
-    }
+    // address of the block created hold by this pointer 
+    int* ptr; 
+    int size = 5; 
+  
+  
+    //  Memory allocates dynamically using calloc() 
+    ptr = (int*)calloc(size, sizeof(int)); 
+  
+    if (ptr == NULL) { 
+        printf("Memory not allocated.\n"); 
+        exit(0); 
+    } 
+    else { 
+        printf("Memory successfully allocated using "
+               "calloc.\n"); 
+    } 
+  
+    // inserting elements 
+    for (int j = 0; j < size; ++j) { 
+        ptr[j] = j + 1; 
+    } 
+  
+    printf("The elements of the array are: "); 
+    for (int k = 0; k < size; ++k) { 
+        printf("%d, ", ptr[k]); 
+    } 
+  
+    printf("\n"); 
+  
+    size = 10; 
+  
+    int *temp = ptr; 
+  
+    //  using realloc 
+    ptr = realloc(ptr, size * sizeof(int)); 
+    if (!ptr) { 
+        printf("Memory Re-allocation failed."); 
+        ptr = temp; 
+    } 
+    else { 
+        printf("Memory successfully re-allocated using "
+               "realloc.\n"); 
+    } 
+  
+    // inserting new elements 
+    for (int j = 5; j < size; ++j) { 
+        ptr[j] = j + 10; 
+    } 
+  
+    printf("The new elements of the array are: "); 
+    for (int k = 0; k < size; ++k) { 
+        printf("%d, ", ptr[k]); 
+    } 
 
     
 }
@@ -72,11 +142,15 @@ int three_d_array() {
 
 int main() {
 
-    one_d_array();
+    malloc_example();
 
-    two_d_array();
+    printf("\n_________\n");
+
+    calloc_example();
     
-    three_d_array();
+    printf("\n_________\n");
+	
+    resize_dynamic_array_using_realloc();
 
     return 0;
 }
