@@ -65,8 +65,7 @@ int main()
 
     printf("\n____________________\n");
 
-    int test = 3;
-    printFun(test);
+    printFun(4);
 
     printf("\n____________________\n");
 
