@@ -3,6 +3,8 @@
 
 int main()
 {
+	printf("hi");
+	
     int a=89;
 
     int k=6;
